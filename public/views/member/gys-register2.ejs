@@ -1,0 +1,136 @@
+<%- include('../header') %>
+<div class="ibz-wraper pt20">
+    <div class="container">
+        <div class="lump">
+            <div class="indexHeader">
+                <span>注册成为供应商</span>
+            </div>
+            <div class="cgs-register">
+                <div class="register">
+                    <ul class="clearfix">
+                        <li class="registerOk">验证手机号</li>
+                        <li class="register-hr"><img src="../../Content/images/ibz13-1.png" alt=""></li>
+                        <li class="register2-1">填写账号信息</li>
+                        <li class="register-hr"><img src="../../Content/images/ibz13.png" alt=""></li>
+                        <li class="register3">注册成功</li>
+                    </ul>
+                </div>
+                <div class="register-form">
+                    <form action="">
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">联系人<span class="color1">（必填）</span></div>
+                            <input type="text" class="registerInp1" id="contacts" maxlength="20" placeholder="请输入联系人姓名">
+                            <label class="error"></label>
+                        </div>
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">密码<span class="color1">（必填）</span></div>
+                            <input type="password" class="registerInp1" id="password" maxlength="16" placeholder="密码由6-16位英文字母、数字或字符组成">
+                            <label class="error"></label>
+                        </div>
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">公司名称<span class="color1">（必填）</span></div>
+                            <input type="text" class="registerInp1" id="company" placeholder="请输入工商局注册企业名称">
+                            <label class="error"></label>
+                        </div>
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">所在地<span class="color1">（必填）</span></div>
+                            <select class="registerSelect1 fl" id="province"><option value="上海">上海</option></select>
+                            <select class="registerSelect1 fr" id="city"><option value="上海">上海</option></select>
+                        </div>
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">主要工艺<span class="color1">（必填）</span></div>
+                            <select class="registerSelect2" id="technology"><option value="上海">上海</option></select>
+                            <label class="error"></label>
+                        </div>
+                        <div class="clearfix mb20">
+                            <div class="memberLabel">邮箱</div>
+                            <input type="text" class="registerInp1" id="email" placeholder="请输入邮箱">
+                        </div>
+                        <div class="clearfix">
+                            <div class="memberLabel"></div>
+                            <button type="button" class="registerBtn2" id="submit">下一步</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../footer') %>
+
+<script type="text/javascript" src="../../Content/js/lib/area.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var login = function () {
+            this.init = function () {
+                this.document();
+                this.register();
+            };
+            this.document = function () {
+                $("input[type='text'], input[type='password']").on('focus', function () {
+                    var thisId = $(this).attr("id");
+                    $("#" + thisId).siblings(".error").removeClass("is-visible");
+                    setTimeout(function () {
+                        $("#" + thisId).siblings(".error").text("");
+                    },200)
+                });
+            };
+            this.register = function () {
+                var _this = this;
+                $("#submit").on('click', function () {
+                    var contacts = $("#contacts").val();
+                    var password = $("#password").val();
+                    var company = $("#company").val();
+                    var province = $("#province").val();
+                    var city = $("#city").val();
+                    var email = $("#email").val();
+                    var technology = $("#technology").val();
+                    if(contacts == ''){
+                        $("#contacts").siblings(".error").addClass("is-visible").text("联系人不能为空");
+                        return
+                    }else {
+                        $("#contacts").siblings(".error").removeClass("is-visible").text("");
+                    }
+
+                    if(password == '' || password.length < 6){
+                        $("#password").siblings(".error").addClass("is-visible").text("密码不能少于6位字符");
+                        return
+                    }else {
+                        $("#password").siblings(".error").removeClass("is-visible").text("");
+                    }
+                    if(company == ''){
+                        $("#company").siblings(".error").addClass("is-visible").text("公司名称不能为空");
+                        return
+                    }else {
+                        $("#company").siblings(".error").removeClass("is-visible").text("");
+                    }
+
+                    var url = "/gys-register2";
+                    var param = {};
+                    param.contacts = contacts;
+                    param.password = password;
+                    param.company = company;
+                    param.province = province;
+                    param.city = city;
+                    param.technology = technology;
+                    param.email = email;
+                    $.ajax({
+                        url: url,
+                        data: param,
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (r) {
+                            location.href='gys-register3';
+                        },
+                        error: function () {
+
+                        }
+                    });
+                });
+            };
+        };
+
+        var home = new login();
+        home.init();
+    })
+</script>
