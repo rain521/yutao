@@ -1,0 +1,164 @@
+<%- include('../header') %>
+<div class="ibz-wraper pt20">
+    <div class="container">
+        <div class="lump">
+            <div class="indexHeader">
+                <span>注册成为供应商</span>
+                <a href="register1" class="color1 fr">注册成为采购商</a>
+            </div>
+            <div class="cgs-register">
+                <div class="register">
+                    <ul class="clearfix">
+                        <li class="register1">验证手机号</li>
+                        <li class="register-hr"><img src="../../Content/images/ibz13.png" alt=""></li>
+                        <li class="register2">填写账号信息</li>
+                        <li class="register-hr"><img src="../../Content/images/ibz13.png" alt=""></li>
+                        <li class="register3">注册成功</li>
+                    </ul>
+                </div>
+                <div class="register-form">
+                    <form action="">
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">手机号<span class="color1">（必填）</span></div>
+                            <input type="text" class="registerInp1" id="registerTel" maxlength="11" placeholder="请输入手机号">
+                            <label class="error"></label>
+                        </div>
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">图片验证码<span class="color1">（必填）</span></div>
+                            <input type="text" class="registerInp2" id="registerImg" maxlength="4" placeholder="图片验证">
+                            <div class="registerVerification">
+                                <img src="../../Content/images/z2.gif" alt="">
+                            </div>
+                            <label class="error" style="right: 112px;"></label>
+                        </div>
+                        <div class="clearfix mb20 prt">
+                            <div class="memberLabel">短信验证码<span class="color1">（必填）</span></div>
+                            <input type="text" class="registerInp2" id="registerSms" maxlength="6" placeholder="短信验证">
+                            <div class="registerVerification">
+                                <input type="button" class="registerBtn1" id="code" value="免费获取验证码">
+                            </div>
+                            <label class="error" style="right: 112px;"></label>
+                        </div>
+                        <div class="clearfix">
+                            <div class="memberLabel"></div>
+                            <button type="button" class="registerBtn2" id="registerSubmit">下一步</button>
+                        </div>
+                        <div class="clearfix">
+                            <div class="memberLabel"></div>
+                            <p>点击“下一步”，即表示您同意并愿意遵守爱包装网<br><a href="registrationProtocol.html" class="color1">用户服务条款</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../footer') %>
+
+<script type="text/javascript">
+    $(function () {
+        var login = function () {
+            var iPhone = /(^(13|14|15|18|17)\d{9}$)/;
+            this.init = function () {
+                this.wait = 60;
+                this.document();
+                this.register();
+            };
+            this.document = function () {
+                $("input[type='text'], input[type='password']").on('focus', function () {
+                    var thisId = $(this).attr("id");
+                    $("#" + thisId).siblings(".error").removeClass("is-visible");
+                    setTimeout(function () {
+                        $("#" + thisId).siblings(".error").text("");
+                    },200)
+                });
+            };
+            //手机验证码
+            this.register = function () {
+                var _this = this;
+                $("#registerSubmit").on('click', function () {
+                    var registerTel = $("#registerTel").val();
+                    var registerImg = $("#registerImg").val();
+                    var registerSms = $("#registerSms").val();
+                    if(registerTel == '' || !iPhone.test(registerTel)){
+                        $("#registerTel").siblings(".error").addClass("is-visible").text("手机号不正确");
+                        return
+                    }else {
+                        $("#registerTel").siblings(".error").removeClass("is-visible").text("");
+                    }
+
+                    if(registerImg == ''){
+                        $("#registerImg").siblings(".error").addClass("is-visible").text("验证码不正确");
+                        return
+                    }else {
+                        $("#registerImg").siblings(".error").removeClass("is-visible").text("");
+                    }
+                    if(registerSms == ''){
+                        $("#registerSms").siblings(".error").addClass("is-visible").text("短信验证码不正确");
+                        return
+                    }else {
+                        $("#registerSms").siblings(".error").removeClass("is-visible").text("");
+                    }
+
+                    var url = "/gys-register1";
+                    var data = { "uname": registerTel};
+                    $.ajax({
+                        url: url,
+                        data: data,
+                        type: 'post',
+                        dataType: 'json',
+                        success:function(data,status){
+                            if(data.success == '200'){
+                                location.href='gys-register2';
+                                return
+                            }else if(data.success == '500'){
+                                $("#registerTel").siblings(".error").addClass("is-visible").text("手机号已存在");
+                            }
+                        },
+                        error: function (r) {}
+                    });
+                })
+
+                $("#code").on('click', function () {
+                    var registerTel = $("#registerTel").val();
+                    var registerImg = $("#registerImg").val();
+                    if(registerTel == '' || !iPhone.test(registerTel)){
+                        $("#registerTel").siblings(".error").addClass("is-visible").text("手机号不正确");
+                        return
+                    }else {
+                        $("#registerTel").siblings(".error").removeClass("is-visible").text("");
+                    }
+
+                    if(registerImg == ''){
+                        $("#registerImg").siblings(".error").addClass("is-visible").text("验证码不正确");
+                        return
+                    }else {
+                        $("#registerImg").siblings(".error").removeClass("is-visible").text("");
+                    }
+                    _this.time()
+                })
+            };
+
+
+            this.time = function () {
+                var _this = this;
+                var code = $("#code");
+                if (this.wait == 0) {
+                    code.attr("disabled", false);
+                    code.val("获取验证码");
+                    this.wait = 60;
+                } else {
+                    code.attr("disabled", true);
+                    code.val("重新发送(" + this.wait + ")");
+                    this.wait--;
+                    setTimeout(function () {
+                        _this.time();
+                    }, 1000);
+                }
+            };
+        };
+
+        var home = new login();
+        home.init();
+    })
+</script>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title %></title>
+    <link rel="shortcut icon" href="Content/images/title.ico" type="image/x-icon">
+    <link rel="stylesheet" href="Content/css/ibz-style.css">
+    <link rel="stylesheet" href="Content/css/common.css">
+    <link rel="stylesheet" href="Content/css/index.css">
+    <script src="Content/js/lib/jquery/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div class="ibz-header">
+    <div class="container clearfix">
+        <div class="ibz-logo">
+            <a href="index" class="db">
+                <img src="../../Content/images/logo.png" alt="">
+            </a>
+        </div>
+        <div class="ibz-seek clearfix">
+            <div class="fl">
+                <div class="ibz-seekInput">
+                    <div class="ibz-seekType">
+                        <span>产品</span>
+                        <ul>
+                            <li>产品</li>
+                            <li>公司</li>
+                        </ul>
+                    </div>
+                    <input type="text">
+                </div>
+                <button class="ibz-seekBtn"></button>
+            </div>
+            <a href="../2.supplierBase/issuanceProduct.html" class="fl ml20 ibz-button1">快速发布产品</a>
+        </div>
+    </div>
+    <div class="ibz-navbar">
+        <div class="container clearfix">
+            <div class="fl navbar">
+                <ul class="clearfix">
+                    <li><a href="index">首页</a></li>
+                    <li><a href="../2.enquiry/enquiryMessage.html">询盘信息</a></li>
+                    <li><a href="../2.supplierBase/supplier.html">供应商库</a></li>
+                    <li><a href="http://www.2bz.com">包印商城</a></li>
+                </ul>
+            </div>
+            <div class="fr">
+
+                <% if (user) { %>
+                <div class="ibz-UserLi">
+                    <a href="<%%>" class="ibz-User"><%= user.name %></a>
+                    <a href="logout" class="ibz-Out">退出</a>
+                </div>
+                <% } else { %>
+                <ul class="clearfix ibz-member">
+                    <li><a href="login">登录</a></li>
+                    <li class="ibz-memberLi">
+                        <a href="javascript:;">注册</a>
+                        <div class="ibz-register">
+                            <a href="register1" class="buyerIco">注册成为采购商</a>
+                            <a href="gys-register1" class="supplierIco">注册成为供应商</a>
+                        </div>
+                    </li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

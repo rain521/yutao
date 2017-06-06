@@ -1,0 +1,226 @@
+<%- include('../header') %>
+    <div class="ibz-login">
+        <div class="container prt">
+            <div class="login">
+                <div class="loginTop">
+                    <ul class="clearfix">
+                        <li class="loginOn">密码登录</li>
+                        <li>手机登录</li>
+                    </ul>
+                </div>
+                <div class="loginFrom">
+                    <div class="loginFromMode">
+                        <form action="">
+                            <div class="loginFromInp clearfix">
+                                <div class="mobileIco"><img src="../../Content/images/member6.png" alt=""></div>
+                                <input type="text" class="memberInp" placeholder="请输入手机号" id="accountTel" maxlength="11">
+                                <label class="error"></label>
+                            </div>
+                            <div class="mt10 loginFromInp clearfix">
+                                <div class="mobileIco"><img src="../../Content/images/member4.png" alt=""></div>
+                                <input type="password" class="memberInp" placeholder="请输入密码" id="accountPass">
+                                <label class="error"></label>
+                            </div>
+                            <div class="mt10 lh30">
+                                <label>
+                                    <input type="checkbox" id="accountBox">
+                                    5天内记住账号
+                                </label>
+                            </div>
+                            <button type="button" class="mt30 memberBtn" id="account">立即登录</button>
+                            <p class="mt20 tac"><a href="forgetPass1" class="color1">找回密码</a></p>
+                            <p class="mt20 tac color9">没有账号，马上注册 <a href="register1" class="color1">采购商</a>或者<a href="gys-register1" class="color1">供应商</a></p>
+                        </form>
+                    </div>
+                    <div class="loginFromMode hide">
+                        <form action="">
+                            <div class="loginFromInp clearfix">
+                                <div class="mobileIco"><img src="../../Content/images/member6.png" alt=""></div>
+                                <input type="text" class="memberInp" id="verificationCodeTel" placeholder="请输入手机号" maxlength="11">
+                                <label class="error"></label>
+                            </div>
+                            <div class="mt10 loginFromInp clearfix">
+                                <div class="mobileIco"><img src="../../Content/images/member8.png" alt=""></div>
+                                <input type="text" class="memberInp" id="verificationCodeImg" placeholder="验证码">
+                                <div class="verificationIco" title="看不清楚？换一张">
+                                    <img src="../../Content/images/z2.gif" alt="">
+                                </div>
+                                <label class="error" style="right: 110px;"></label>
+                            </div>
+                            <div class="mt10 loginFromInp clearfix">
+                                <div class="mobileIco"><img src="../../Content/images/member7.png" alt=""></div>
+                                <input type="text" class="memberInp" id="verificationCodeSms" placeholder="短信验证码">
+                                <input type="button" class="testGetCode" id="code" value="获取验证码" />
+                                <label class="error" style="right: 110px;"></label>
+                            </div>
+                            <button type="button" class="mt40 memberBtn" id="verificationCode">立即登录</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../footer') %>
+
+    <script type="text/javascript">
+        $(function () {
+            var login = function () {
+                var iPhone = /(^(13|14|15|18|17)\d{9}$)/;
+                this.init = function () {
+                    this.wait = 60;
+                    this.document();
+                    this.account();
+                    this.verificationCode();
+                };
+                this.document = function () {
+                    $(".loginTop").find("li").on("click", function () {
+                        var _index = $(this).index();
+                        $(this).addClass("loginOn").siblings().removeClass("loginOn")
+                        $(".loginFrom").children(".loginFromMode").eq(_index).show().siblings().hide();
+                    })
+
+                    $("input[type='text'], input[type='password']").on('focus', function () {
+                        var thisId = $(this).attr("id");
+                        $("#" + thisId).siblings(".error").removeClass("is-visible");
+                        setTimeout(function () {
+                            $("#" + thisId).siblings(".error").text("");
+                        },200)
+                    });
+                };
+
+                //账号密码
+                this.account = function () {
+                    $("#account").on("click", function () {
+                        var accountTel = $("#accountTel").val();
+                        var accountPass = $("#accountPass").val();
+                        if(accountTel == '' || !iPhone.test(accountTel)){
+                            $("#accountTel").siblings(".error").addClass("is-visible").text("手机号不正确");
+                            return
+                        }else {
+                            $("#accountTel").siblings(".error").removeClass("is-visible").text("");
+                        }
+
+                        if(accountPass == '' || accountPass.length < 6){
+                            $("#accountPass").siblings(".error").addClass("is-visible").text("密码不能少于6位字符");
+                            return
+                        }else {
+                            $("#accountPass").siblings(".error").removeClass("is-visible").text("");
+                        }
+
+                        var url = "/login";
+                        var param = {};
+                        param.tel = accountTel;
+                        param.password = accountPass;
+                        $.ajax({
+                            url: url,
+                            data: param,
+                            type: 'post',
+                            dataType: 'json',
+                            success: function (r) {
+                                console.log(r);
+                                if(r.success == '200'){
+                                    location.href='index';
+                                    return
+                                }else if(r.success == '404'){
+                                    $("#accountPass").siblings(".error").addClass("is-visible").text("密码不正确");
+                                    return
+                                }else if(r.success == '500'){
+                                    $("#accountTel").siblings(".error").addClass("is-visible").text("手机号不存在");
+                                }
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    });
+
+                }
+                //手机验证码
+                this.verificationCode = function () {
+                    var _this = this;
+                    $("#verificationCode").on('click', function () {
+                        var verificationCodeTel = $("#verificationCodeTel").val();
+                        var verificationCodeImg = $("#verificationCodeImg").val();
+                        var verificationCodeSms = $("#verificationCodeSms").val();
+                        if(verificationCodeTel == '' || !iPhone.test(verificationCodeTel)){
+                            $("#verificationCodeTel").siblings(".error").addClass("is-visible").text("手机号不正确");
+                            return
+                        }else {
+                            $("#verificationCodeTel").siblings(".error").removeClass("is-visible").text("");
+                        }
+
+                        if(verificationCodeImg == ''){
+                            $("#verificationCodeImg").siblings(".error").addClass("is-visible").text("验证码不正确");
+                            return
+                        }else {
+                            $("#verificationCodeImg").siblings(".error").removeClass("is-visible").text("");
+                        }
+                        if(verificationCodeSms == ''){
+                            $("#verificationCodeSms").siblings(".error").addClass("is-visible").text("短信验证码不正确");
+                            return
+                        }else {
+                            $("#verificationCodeSms").siblings(".error").removeClass("is-visible").text("");
+                        }
+
+                        var url = "";
+                        var param = {};
+                        param.verificationCodeTel = verificationCodeTel;
+                        $.ajax({
+                            url: url,
+                            data: param,
+                            type: 'post',
+                            dataType: 'json',
+                            success: function (r) {
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    })
+
+                    $("#code").on('click', function () {
+                        var verificationCodeTel = $("#verificationCodeTel").val();
+                        var verificationCodeImg = $("#verificationCodeImg").val();
+                        if(verificationCodeTel == '' || !iPhone.test(verificationCodeTel)){
+                            $("#verificationCodeTel").siblings(".error").addClass("is-visible").text("手机号不正确");
+                            return
+                        }else {
+                            $("#verificationCodeTel").siblings(".error").removeClass("is-visible").text("");
+                        }
+
+                        if(verificationCodeImg == ''){
+                            $("#verificationCodeImg").siblings(".error").addClass("is-visible").text("验证码不正确");
+                            return
+                        }else {
+                            $("#verificationCodeImg").siblings(".error").removeClass("is-visible").text("");
+                        }
+                        _this.time()
+                    })
+                };
+
+
+                this.time = function () {
+                    var _this = this;
+                    var code = $("#code");
+                    if (this.wait == 0) {
+                        code.attr("disabled", false);
+                        code.val("获取验证码");
+                        this.wait = 60;
+                    } else {
+                        code.attr("disabled", true);
+                        code.val("重新发送(" + this.wait + ")");
+                        this.wait--;
+                        setTimeout(function () {
+                            _this.time();
+                        }, 1000);
+                    }
+                };
+            };
+
+            var home = new login();
+            home.init();
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+@charset "UTF-8";
+
+label.error{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    padding: 0 8px;
+    line-height: 44px;
+    color: #c33;
+    cursor: text;
+    visibility: hidden;
+    opacity: 0;
+    -ms-filter: "alpha(Opacity=0)";
+    -webkit-transform: translate(20px,0);
+    -ms-transform: translate(20px,0);
+    transform: translate(20px,0);
+    -webkit-transition: .25s ease-out;
+    transition: .25s ease-out;
+}
+
+label.error.is-visible {
+    visibility: visible;
+    opacity: 1;
+    -ms-filter: "alpha(Opacity=100)";
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+}
+.banner1{
+    width:100%;
+    height: 350px;
+    overflow: hidden;
+}
+.banner1.banner1-ico1{background: transparent url("../images/bannerXp.jpg") no-repeat scroll center center;}
+.banner1.banner1-ico2{background: transparent url("../images/bannerGys.jpg") no-repeat scroll center center;}
+.breadcrumb{
+    height: 50px;
+    line-height: 50px;
+    color: #000;
+}
+/*logo层*/
+.ibz-header{
+    background: #fff;
+}
+.ibz-logo{
+    height: 105px;
+    line-height: 105px;
+    float: left;
+    cursor: pointer;
+}
+.ibz-seek{
+    float: right;
+    /*height: 105px;*/
+    padding-top: 25px;
+}
+.ibz-seek .ibz-seekInput{
+    height:35px;
+    border:1px solid #b81c22;
+    border-radius: 3px 0 0 3px;
+    float: left;
+}
+.ibz-seekType{
+    position: relative;
+    width: 75px;
+    height: 33px;
+    *height:27px;
+    padding-top: 9px;
+    float: left;
+}
+.ibz-seekType span{
+    display: block;
+    height: 15px;
+    line-height: 15px;
+    background: url(../images/jt1.png) no-repeat 57px center;
+    text-align: center;
+    border-right: 1px solid #999;
+    padding-right: 13px;
+}
+.ibz-seekType ul{
+    display: none;
+    border:1px solid #ddd;
+    position: absolute;
+    top:33px;
+    *top:35px;
+    left: 0;
+}
+.ibz-seekType ul li{
+    width:75px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+}
+/*.ibz-seekType:hover ul{*/
+    /*display: block;*/
+/*}*/
+.ibz-seekType ul li:hover{
+    background: #ddd;
+}
+.ibz-seekInput input{
+    width:305px;
+    height:33px;
+    line-height: 33px;
+    *width:293px;
+    *height:35px;
+    *line-height: 35px;
+    *padding: 0 6px;
+    border:none;
+    float: left;
+}
+.ibz-seek button{cursor: pointer;  }
+.ibz-seekBtn{
+    float: left;
+    width:64px;
+    height:35px;
+    *height:37px;
+    background: #b81c22 url("../images/ibz1.png") no-repeat center;
+    cursor: pointer;
+    border-radius: 0 3px 3px 0;
+}
+.ibz-seekBtn:hover{
+    background: #d4050d url("../images/ibz1.png") no-repeat center;
+}
+
+/*导航栏层*/
+.ibz-navbar{
+    background: #fff;
+    border-bottom: 1px solid #999;
+    font-size: 16px;
+    height: 35px;
+}
+.navbar ul li{
+    float: left;
+    height:35px;
+    line-height: 35px;
+    *height:34px;
+    margin: 0 5px;
+}
+.navbar ul li.navbarOn, .navbar ul li:hover{
+    border-bottom: 2px solid #b81c22;
+}
+.navbar ul li a{
+    display: block;
+    padding:0 15px;
+    color: #333;
+}
+.navbar ul li a:hover,
+.navbar ul li.navbarOn a{color: #b81c22;}
+.ibz-member li{
+    position: relative;
+    float: left;
+    width:75px;
+    height:30px;
+    line-height: 30px;
+    margin: 0 10px;
+    text-align: center;
+    background: #f3f3f3;
+    border-radius: 3px;
+    border:1px solid #e0e0e0;
+    *z-index: 1;
+}
+.ibz-member li > a{
+    display: block;
+    width:100%;
+    height:100%;
+}
+.ibz-member li.ibz-memberLi > a{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 999;
+}
+.ibz-member li:hover{
+    background: #fff;
+    border:1px solid #b81c22;
+}
+.ibz-register{
+    position: absolute;
+    top:28px;
+    right:-1px;
+    display: none;
+    border:1px solid #b81c22;
+    width: 170px;
+    *width:147px;
+    padding: 15px 0 15px 25px;
+    background: #fff;
+    border-radius: 3px 0 3px 3px;
+    font-size: 12px;
+    z-index: 990;
+}
+.ibz-register a{
+    display: block;
+    height:30px;
+    line-height: 30px;
+    color: #666;
+}
+.ibz-register a.buyerIco{  background: url("../images/ibz9.png") no-repeat center left !important;  }
+.ibz-register a.buyerIco:hover{ color: #b81c22; background: url("../images/ibz9-1.png") no-repeat center left !important;  }
+.ibz-register a.supplierIco{ background: url("../images/ibz10.png") no-repeat center left !important;  }
+.ibz-register a.supplierIco:hover{ color: #b81c22; background: url("../images/ibz10-1.png") no-repeat center left !important;  }
+.ibz-member li.ibz-memberLi:hover{
+    border-radius: 3px 3px 0 0;
+    border-bottom: 0px;
+}
+.ibz-member li.ibz-memberLi:hover a{
+    border-radius: 3px 3px 0 0;
+    background: #fff;
+}
+
+.ibz-member li.ibz-memberLi:hover .ibz-register{
+    display: block;
+}
+
+.ibz-UserLi{
+    width:120px;
+    position: relative;
+    *z-index: 99;
+}
+.ibz-UserLi a{
+    width:120px;
+    *width:85px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0 15px 0 30px;
+    display: block;
+    font-size: 14px;
+    z-index: 50;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.ibz-UserLi a:hover{
+    color: #b81c22;
+}
+.ibz-UserLi a.ibz-User{
+    position: absolute;
+    top:0;
+    left:0;
+    border:1px solid #ddd;
+    border-radius: 2px;
+    background: #f3f3f3 url("../images/ibz23.png") no-repeat 15px center;
+}
+.ibz-UserLi a.ibz-User:hover{
+    background: #f3f3f3 url("../images/ibz23-1.png") no-repeat 15px center;
+}
+.ibz-UserLi a.ibz-Out{
+    position: absolute;
+    top:29px;
+    left: 0;
+    display: none;
+    background: #f3f3f3 url("../images/ibz24.png") no-repeat 15px center;
+}
+.ibz-UserLi a.ibz-Out:hover{
+    background: #f3f3f3 url("../images/ibz24-1.png") no-repeat 15px center;
+}
+.ibz-UserLi:hover a.ibz-User{
+    border-left: 1px solid #b81c22;
+    border-top: 1px solid #b81c22;
+    border-right: 1px solid #b81c22;
+    border-radius: 2px 2px 0 0;
+}
+.ibz-UserLi:hover a.ibz-Out{
+    display: block;
+    border-left: 1px solid #b81c22;
+    border-bottom: 1px solid #b81c22;
+    border-right: 1px solid #b81c22;
+    border-radius: 0 0 2px 2px;
+}
+/* 内容区 */
+.ibz-wraper{
+    padding-bottom: 50px;
+}
+
+/* 底部 */
+.ibz-base{
+    padding:30px;
+    background: #333;
+}
+.ibz-baseFl{
+    width:627px;
+    float: left;
+    padding: 20px 0;
+    border-right: 1px solid #fff;
+    height: 156px;
+}
+.ibz-baseFl ul li {
+    float: left;
+    width:33%;
+    *width:23%;
+    padding-left: 60px;
+}
+
+.ibz-baseFl ul li dt{
+    color: #fff;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.ibz-baseFl ul li dd{
+    margin: 10px 0;
+}
+.ibz-baseFl ul li dd a{
+    font-size: 12px;
+    color: #b1afaf;
+}
+.ibz-baseFl ul li dd a:hover{
+    color: #b81c22;
+}
+.ibz-baseFr{
+    float: left;
+    width:325px;
+    *width:322px;
+    text-align: center;
+    color: #fff;
+    padding: 20px 0;
+    border-right: 1px solid #fff;
+    height: 156px;
+}
+.ibz-baseFr h1{
+    margin:10px 0;
+}
+.ibz-baseFr .ibz-service{
+    display: block;
+    width: 120px;
+    height:35px;
+    line-height: 35px;
+    color: #b81c22;
+    border:1px solid #b81c22;
+    border-radius: 3px;
+    padding-left: 20px;
+    text-align: center;
+    background: url("../images/ibz2.png") no-repeat 20px center;
+    margin:15px auto;
+}
+.ibz-baseFrs{
+    padding-top: 10px;
+    float: left;
+    width: 248px;
+    text-align: center;
+}
+
+/*弹框*/
+.popUp{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: rgba(0,0,0,0.3);
+    *background: #f1f1f1;
+    display: none;
+    z-index: 90;
+}
+.popUp .popUp-content{
+    width: 690px;
+    background: #fff;
+    margin: 200px auto 0;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+.popUp-head {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.popUp-head h1{
+    float: left;
+    margin:0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+.popUp-head span.popUp-remove{
+    float: right;
+    display: block;
+    width:20px;
+    height: 100%;
+    color: #666;
+    cursor: pointer;
+    font-size: 30px;
+    text-align: center;
+}
+.popUp-head span.popUp-remove:hover{
+    color: #444;
+}
+.popUp-body{
+    padding: 35px 80px;
+}
+.popUp-body .ibz-form-label{
+    float: left;
+    text-align: left;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+}
+.ibz-form-fr{
+    width:380px;
+    float: right;
+    height: 35px;
+    line-height: 35px;
+    text-align: left;
+}
+.popUp-body label{
+    height: 35px;
+    line-height: 35px;
+}
+.popUp-body label span{
+    font-size: 12px;
+}
+.popUp-body input{
+    float: right;
+    width:380px;
+    height:35px;
+    line-height: 35px;
+    border:1px solid #d0d0d0;
+    border-radius: 3px;
+    padding:0 6px;
+}
+.popUp-body textarea{
+    width:380px !important;
+    height: 80px;
+    border:1px solid #d0d0d0;
+    border-radius: 3px;
+    padding:0 6px;
+    line-height: 20px;
+}
+
+/*审核中*/
+.auditIco{background: url("../images/ibz26.png") no-repeat 5px 5px;}
+
+/*弹框登录*/
+.layer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #000;
+    filter:alpha(opacity=50); /*IE滤镜，透明度50%*/
+    -moz-opacity:0.5; /*Firefox私有，透明度50%*/
+    opacity:0.5;
+    z-index: 90;
+}
+.logIn-bounced{
+    position: fixed;
+    left: 0;
+    top: 100px;
+    z-index: 91;
+    padding: 50px 50px 0 50px;
+    background: #fff;
+}
+.logInbouncedHide{
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background: url("../images/ibz31.png") no-repeat center;
+    background-size: 14px;
+    z-index: 1;
+}
+.logIn-bounced .member{
+    left:0px;
+    top: 0;
+}
